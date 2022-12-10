@@ -24,7 +24,12 @@ class FormInput extends Model
     protected $casts = [
         'choices' => AsArrayObject::class,
         'attributes' => AsArrayObject::class,
-        'input_type' => InputType::class,
+        // 'input_type' => InputType::class,
+    ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
     ];
 
     public function form()
