@@ -4,7 +4,7 @@
 # @prompt name
 # @prompt email
 # @prompt password
-POST {{url}}/api/auth/register HTTP/1.1
+POST {{url}}/api/v1/auth/register HTTP/1.1
 Content-Type: application/json
 Accept:  application/json
 
@@ -20,7 +20,7 @@ Accept:  application/json
 # @name login
 # @prompt email
 # @prompt password
-POST {{url}}/api/auth/login HTTP/1.1
+POST {{url}}/api/v1/auth/login HTTP/1.1
 Content-Type: application/json
 Accept:  application/json
 
@@ -28,5 +28,98 @@ Accept:  application/json
     "email": "{{email}}",
     "password": "{{password}}"
 }
+
+###
+
+@token = 2|TkQ9GDTnNDoNvtXeVx7BE1M9P2irw5y5B1rgqqz8
+
+POST {{url}}/api/v1/form HTTP/1.1
+Content-Type: application/json
+Accept:  application/json
+Authorization: : Bearer {{token}}
+
+{
+    "title": "My Form 1",
+    "fields": [
+        {
+            "name": "name",
+            "label": "Name",
+            "input_type": "text"
+        },
+        {
+            "name": "email",
+            "label": "Email",
+            "input_type": "email",
+            "rules": "required|email",
+            "attributes": {
+                "required": "required"
+            }
+        },
+        {
+            "name": "gender",
+            "label": "Gender",
+            "input_type": "radio",
+            "rules": "required",
+            "choices": [
+                { "label": "Male", "value": "m" },
+                { "label": "Female", "value": "f" }
+            ]
+        }
+    ]
+}
+
+###
+
+
+PATCH {{url}}/api/v1/form/2 HTTP/1.1
+Content-Type: application/json
+Accept:  application/json
+Authorization: : Bearer {{token}}
+
+{
+    "title": "My Form 1",
+    "fields": [
+        {
+            "name": "name",
+            "label": "Name",
+            "input_type": "text"
+        },
+        {
+            "name": "email",
+            "label": "Email",
+            "input_type": "email",
+            "rules": "required|email",
+            "attributes": {
+                "required": "required"
+            }
+        },
+        {
+            "name": "gender",
+            "label": "Gender",
+            "input_type": "radio",
+            "rules": "required",
+            "choices": [
+                { "label": "Male", "value": "m" },
+                { "label": "Female", "value": "f" }
+            ]
+        },
+        {
+            "name": "test",
+            "label": "Test",
+            "input_type": "checkbox",
+            "rules": "required",
+            "choices": [
+                { "label": "Test 1", "value": "t1" },
+                { "label": "Test 2", "value": "t2" }
+            ]
+        }
+    ]
+}
+
+###
+
+GET {{url}}/api/v1/form/2 HTTP/1.1
+Accept:  application/json
+Authorization: : Bearer {{token}}
 
 ###
