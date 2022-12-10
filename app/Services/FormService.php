@@ -150,8 +150,12 @@ class FormService
 
         FormSubmitted::dispatch($formId, $data);
 
-        Mail::to($form->owner->email)
-            ->send(new SendFormMail($form, $data));
+        try {
+            Mail::to($form->owner->email)
+                ->send(new SendFormMail($form, $data));
+        } catch (Exception $e) {
+            logger($e);
+        }
     }
 
     public function generateRules(int $formId): array
