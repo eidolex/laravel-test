@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\AuthController;
+use App\Http\Controllers\Api\V1\FormController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,4 +23,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix('/v1')->group(function () {
     Route::post('/auth/login', [AuthController::class, 'login']);
     Route::post('/auth/register', [AuthController::class, 'register']);
+
+
+    Route::resource('/form', FormController::class)->only([
+        'store',
+        'show',
+        'update',
+        'destory',
+    ])->middleware('auth:sanctum');
 });
