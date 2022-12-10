@@ -11,6 +11,7 @@ class Form extends Model
 
     protected $fillable = [
         'title',
+        'slug',
         'owner_id',
     ];
 
