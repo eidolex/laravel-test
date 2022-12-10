@@ -4,6 +4,7 @@ namespace App\Enums;
 
 enum InputType: string
 {
+
     case Text = 'text';
     case Url = 'url';
     case TextArea = 'textarea';
@@ -12,6 +13,7 @@ enum InputType: string
 
     case Radio = 'radio';
     case Checkbox = 'checkbox';
+    case Select = 'select';
 
     case Tel = 'tel';
     case Number = 'number';
