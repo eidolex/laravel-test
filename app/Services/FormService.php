@@ -2,13 +2,13 @@
 
 namespace App\Services;
 
-use App\Enums\InputType;
 use App\Events\FormSubmitted;
+use App\Mail\SendFormMail;
 use App\Models\Form;
 use App\Models\FormInput;
 use Exception;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\UnauthorizedException;
 
 class FormService
@@ -146,7 +146,12 @@ class FormService
     {
         // TODO: save data to db maybe
 
+        $form = $this->getForm($formId, true);
+
         FormSubmitted::dispatch($formId, $data);
+
+        Mail::to($form->owner->email)
+            ->send(new SendFormMail($form, $data));
     }
 
     public function generateRules(int $formId): array
