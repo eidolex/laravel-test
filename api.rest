@@ -1,0 +1,32 @@
+@url = http://localhost:8000
+
+# @name register
+# @prompt name
+# @prompt email
+# @prompt password
+POST {{url}}/api/auth/register HTTP/1.1
+Content-Type: application/json
+Accept:  application/json
+
+{
+    "name": "{{name}}",
+    "email": "{{email}}",
+    "password": "{{password}}"
+}
+
+###
+
+
+# @name login
+# @prompt email
+# @prompt password
+POST {{url}}/api/auth/login HTTP/1.1
+Content-Type: application/json
+Accept:  application/json
+
+{
+    "email": "{{email}}",
+    "password": "{{password}}"
+}
+
+###
