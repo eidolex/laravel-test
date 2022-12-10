@@ -15,10 +15,9 @@ return new class extends Migration
     {
         Schema::create('forms', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('owner_id');
             $table->string('title', 255);
             $table->string('slug');
-            $table->foreignIdFor(User::class, 'owner_id')->constrained();
+            $table->foreignId('owner_id')->constrained('users');
             $table->timestamps();
         });
     }
