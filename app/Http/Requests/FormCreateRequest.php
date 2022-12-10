@@ -35,7 +35,7 @@ class FormCreateRequest extends FormRequest
             'title' => 'required',
             'slug' => 'required|unique:forms,slug,' . $id,
             'fields' => 'required|array',
-            'fields.*.name' => 'required|max:100',
+            'fields.*.name' => 'required|max:100|alpha_dash|distinct',
             'fields.*.label' => 'required|max:255',
             'fields.*.input_type' => [
                 'required',
