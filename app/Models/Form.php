@@ -18,4 +18,9 @@ class Form extends Model
     {
         return $this->belongsTo(User::class, 'owner_id');
     }
+
+    public function formInputs()
+    {
+        return $this->hasMany(FormInput::class);
+    }
 }
