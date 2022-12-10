@@ -2,10 +2,13 @@
 
 namespace App\Services;
 
+use App\Enums\InputType;
+use App\Events\FormSubmitted;
 use App\Models\Form;
 use App\Models\FormInput;
 use Exception;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Illuminate\Validation\UnauthorizedException;
 
 class FormService
@@ -137,5 +140,31 @@ class FormService
         $this->formInput->query()
             ->where('form_id', $formId)
             ->delete();
+    }
+
+    public function submitForm(int $formId, array $data): void
+    {
+        // TODO: save data to db maybe
+
+        FormSubmitted::dispatch($formId, $data);
+    }
+
+    public function generateRules(int $formId): array
+    {
+        $rules = [];
+
+        $formInputs = $this->formInput->query()
+            ->where('form_id', $formId)
+            ->get();
+
+        foreach ($formInputs as $formInput) {
+            if ($formInput->rules) {
+                $rules[$formInput->name] = $formInput->rules;
+            } else {
+                $rules[$formInput->name] = 'nullable';
+            }
+        }
+
+        return $rules;
     }
 }
