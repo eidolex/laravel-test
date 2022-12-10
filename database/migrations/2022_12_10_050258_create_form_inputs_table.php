@@ -25,7 +25,6 @@ return new class extends Migration
             $table->text('attributes')->nullable();
             $table->smallInteger('input_order')->default(0)->index();
             $table->timestamps();
-            $table->unique(['form_id', 'name']);
         });
     }
 
